@@ -22,10 +22,10 @@ jobs:
           dotnet-version: '8.0'
 
       - name: Build the application
-        run: dotnet restore dotnet
+        run: dotnet restore
 
       - name: Publish the application
-        run: publish -c Release -o output
+        run: dotnet publish -c Release -o output
 
       - name: Create a zip
         run: zip -r release.zip output
