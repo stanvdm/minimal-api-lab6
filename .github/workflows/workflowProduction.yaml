@@ -28,7 +28,7 @@ jobs:
         run: dotnet publish -c Release -o output
 
       - name: Create a zip
-        run: zip -r release.zip output
+        run: zip -jr release.zip output
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v3
@@ -54,8 +54,4 @@ jobs:
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       - name: Deploy to Azure App Service
-        uses: azure/cli@v2
-        with:
-          azcliversion: latest
-          inlineScript: |
-            az webapp deploy --resource-group vandamme-rg-production-westeurope-01 --name vandamme-as-production-westeurope-01 --src-path release.zip
+        run: az webapp deploy --resource-group vandamme-rg-production-westeurope-01 --name vandamme-as-production-westeurope-01 --src-path release.zip
